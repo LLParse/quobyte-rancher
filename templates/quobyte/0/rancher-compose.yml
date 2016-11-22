@@ -1,3 +1,10 @@
 .catalog:
   version: v1.3.11-rancher0
   minimum_rancher_version: 1.1.4
+  questions:
+  - variable: HOST_DEVICE_PATH
+    label: Host Device Path
+    description: The host's device path
+    required: true
+    default: /tmp/fakedevs
+    type: string

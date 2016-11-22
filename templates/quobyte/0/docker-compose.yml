@@ -14,7 +14,7 @@ services:
     - 7871:7871/tcp
     privileged: true
     volumes:
-    - /tmp/fakedevs/:/devices
+    - ${HOST_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
@@ -37,7 +37,7 @@ services:
     - 7875:7875/tcp
     privileged: true
     volumes:
-    - /tmp/fakedevs/:/devices
+    - ${HOST_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
@@ -59,7 +59,7 @@ services:
     - 7876:7876/tcp
     privileged: true
     volumes:
-    - /tmp/fakedevs/:/devices
+    - ${HOST_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
@@ -81,7 +81,7 @@ services:
     - 7872:7872/tcp
     privileged: true
     volumes:
-    - /tmp/fakedevs/:/devices
+    - ${HOST_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
@@ -103,7 +103,7 @@ services:
     - 7873:7873/tcp
     privileged: true
     volumes:
-    - /tmp/fakedevs/:/devices
+    - ${HOST_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
