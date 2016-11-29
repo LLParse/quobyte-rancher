@@ -10,6 +10,7 @@ services:
       QUOBYTE_NETWORK: ${QUOBYTE_NETWORK}
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.scheduler.affinity:host_label_soft: quobyte=registry
     ports:
     - 7861:7861/tcp
@@ -35,6 +36,7 @@ services:
       QUOBYTE_NETWORK: host
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.scheduler.affinity:host_label_soft: quobyte=api
     ports:
     - 7860:7860/tcp
@@ -61,6 +63,7 @@ services:
       QUOBYTE_LOG_LEVEL: ${QUOBYTE_LOG_LEVEL}
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.scheduler.affinity:host_label_soft: quobyte=webconsole
     ports:
     - 8080:8080/tcp

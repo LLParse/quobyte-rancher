@@ -17,6 +17,12 @@
     options:
     - host
     - rancher-sdn
+  - variable: REGISTRY_SCALE
+    label: Registry replication factor
+    description: Number of registry replicas to schedule. At least this many hosts are required
+    required: true
+    type: int
+    default: 1
   - variable: QUOBYTE_LOG_LEVEL
     label: Quobyte Log Level
     description: Quobyte logging level
@@ -33,7 +39,7 @@
     - INFO
     - DEBUG
 registry:
-  scale: 1
+  scale: ${REGISTRY_SCALE}
   health_check:
     request_line: GET / HTTP/1.0
     port: 7871
