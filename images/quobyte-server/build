@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+HOST=${HOST:-docker.io}
+ACCOUNT=${ACCOUNT:-llparse}
+VERSION=${VERSION:-1.3.11}
+
+docker build -t ${ACCOUNT}/quobyte-server:${VERSION} .
+docker push ${ACCOUNT}/quobyte-server:${VERSION}

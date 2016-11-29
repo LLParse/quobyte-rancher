@@ -7,6 +7,7 @@ services:
       QUOBYTE_RPC_PORT: 7861
       QUOBYTE_HTTP_PORT: 7871
       QUOBYTE_LOG_LEVEL: ${QUOBYTE_LOG_LEVEL}
+      QUOBYTE_NETWORK: ${QUOBYTE_NETWORK}
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label_soft: quobyte=registry
@@ -16,7 +17,7 @@ services:
     - 7871:7871/tcp
     privileged: true
     volumes:
-    - ${HOST_DEVICE_PATH}/:/devices
+    - ${QUOBYTE_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
@@ -31,6 +32,7 @@ services:
       QUOBYTE_RPC_PORT: 7865
       QUOBYTE_HTTP_PORT: 7875
       QUOBYTE_LOG_LEVEL: ${QUOBYTE_LOG_LEVEL}
+      QUOBYTE_NETWORK: host
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label_soft: quobyte=api
@@ -42,7 +44,7 @@ services:
     - 7875:7875/tcp
     privileged: true
     volumes:
-    - ${HOST_DEVICE_PATH}/:/devices
+    - ${QUOBYTE_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
@@ -67,8 +69,7 @@ services:
     - 7876:7876/tcp
     privileged: true
     volumes:
-    - ${HOST_DEVICE_PATH}/:/devices
-    - /var/lib/quobyte/jetty
+    - ${QUOBYTE_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
@@ -91,7 +92,7 @@ services:
     - 7872:7872/tcp
     privileged: true
     volumes:
-    - ${HOST_DEVICE_PATH}/:/devices
+    - ${QUOBYTE_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:
@@ -114,7 +115,7 @@ services:
     - 7873:7873/tcp
     privileged: true
     volumes:
-    - ${HOST_DEVICE_PATH}/:/devices
+    - ${QUOBYTE_DEVICE_PATH}/:/devices
     logging:
       driver: json-file
       options:

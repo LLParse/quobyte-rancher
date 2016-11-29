@@ -2,12 +2,21 @@
   version: v1.3.11-rancher0
   minimum_rancher_version: 1.1.4
   questions:
-  - variable: HOST_DEVICE_PATH
-    label: Host Device Path
-    description: The host's device path
+  - variable: QUOBYTE_DEVICE_PATH
+    label: Device Path
+    description: Host filesystem directory containing mounted devices prepared for Quobyte
     required: true
-    default: /tmp/fakedevs
+    default: /mnt
     type: string
+  - variable: QUOBYTE_NETWORK
+    label: Quobyte Network
+    description: How network traffic is routed between node
+    required: true
+    type: enum
+    default: rancher-sdn
+    options:
+    - host
+    - rancher-sdn
   - variable: QUOBYTE_LOG_LEVEL
     label: Quobyte Log Level
     description: Quobyte logging level
@@ -23,3 +32,43 @@
     - NOTICE
     - INFO
     - DEBUG
+registry:
+  scale: 1
+  health_check:
+    request_line: GET / HTTP/1.0
+    port: 7871
+    interval: 5000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
+api:
+  scale: 1
+  health_check:
+    port: 7860
+    interval: 5000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
+webconsole:
+  scale: 1
+  health_check:
+    request_line: GET / HTTP/1.0
+    port: 8080
+    interval: 5000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
+metadata:
+  health_check:
+    port: 7872
+    interval: 10000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
+data:
+  health_check:
+    port: 7873
+    interval: 10000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
