@@ -68,6 +68,7 @@ services:
     privileged: true
     volumes:
     - ${HOST_DEVICE_PATH}/:/devices
+    - /var/lib/quobyte/jetty
     logging:
       driver: json-file
       options:
