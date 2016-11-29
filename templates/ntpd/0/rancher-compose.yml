@@ -1,2 +1,12 @@
 .catalog:
   version: v1
+  questions:
+  - variable: TIME_ZONE
+    label: Time Zone
+    description: Host system time zone
+    required: true
+    type: enum
+    default: UTC
+    options:
+    - UTC
+    - MST

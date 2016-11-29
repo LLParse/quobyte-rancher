@@ -16,8 +16,9 @@ services:
     - /app/s6/ntpd/supervise:rw,noexec,nosuid,size=1m
     read_only: true
     ports:
-    - "123:123"
+    - "123:123/udp"
     labels:
       io.rancher.scheduler.global: 'true'
     environment:       
       Author: "Kim Goh"
+      TZ: ${TIME_ZONE}
