@@ -8,6 +8,7 @@ services:
       QUOBYTE_HTTP_PORT: 7871
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label_soft: quobyte=registry
     ports:
     - 7861:7861/tcp
     - 7861:7861/udp
@@ -29,6 +30,7 @@ services:
       QUOBYTE_HTTP_PORT: 7875
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label_soft: quobyte=api
     ports:
     - 7860:7860/tcp
     - 7860:7860/udp
@@ -52,6 +54,7 @@ services:
       QUOBYTE_HTTP_PORT: 7876
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label_soft: quobyte=webconsole
     ports:
     - 8080:8080/tcp
     - 7866:7866/tcp
