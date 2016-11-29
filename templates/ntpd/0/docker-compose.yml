@@ -1,0 +1,23 @@
+version: '2'
+services:
+  ntpd:
+    image: ntpd/ntpd:latest
+    hostname: ntpd
+    restart: on-failure:2
+    cap_add:
+    - SYS_TIME
+    - SYS_NICE
+    mem_limit: 64M
+    tmpfs:
+    - /var/run:rw,noexec,nosuid,size=1m
+    - /var/db:rw,noexec,nosuid,size=8m
+    - /app/s6/.s6-svscan:rw,noexec,nosuid,size=1m
+    - /app/s6/ntpd/event:rw,noexec,nosuid,size=1m
+    - /app/s6/ntpd/supervise:rw,noexec,nosuid,size=1m
+    read_only: true
+    ports:
+    - "123/udp:123/udp"
+    labels:
+      io.rancher.scheduler.global: 'true'
+    environment:       
+      Author: "Kim Goh"

@@ -1,0 +1,5 @@
+name: Ntpd
+description: Synchronize time on all hosts
+version: v1
+category: Clustering
+minimum_rancher_version: 1.0
