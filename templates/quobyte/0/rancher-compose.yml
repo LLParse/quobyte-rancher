@@ -8,3 +8,18 @@
     required: true
     default: /tmp/fakedevs
     type: string
+  - variable: QUOBYTE_LOG_LEVEL
+    label: Quobyte Log Level
+    description: Quobyte logging level
+    required: true
+    type: enum
+    default: INFO
+    options:
+    - EMERG
+    - ALERT
+    - CRIT
+    - ERR
+    - WARNING
+    - NOTICE
+    - INFO
+    - DEBUG
