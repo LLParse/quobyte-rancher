@@ -7,7 +7,7 @@ services:
     cap_add:
     - SYS_TIME
     - SYS_NICE
-    mem_limit: 64M
+    mem_limit: 64000000
     tmpfs:
     - /var/run:rw,noexec,nosuid,size=1m
     - /var/db:rw,noexec,nosuid,size=8m
@@ -16,7 +16,7 @@ services:
     - /app/s6/ntpd/supervise:rw,noexec,nosuid,size=1m
     read_only: true
     ports:
-    - "123/udp:123/udp"
+    - "123:123"
     labels:
       io.rancher.scheduler.global: 'true'
     environment:       
