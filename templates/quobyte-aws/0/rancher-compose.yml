@@ -1,0 +1,95 @@
+.catalog:
+  version: v1.3.11-rancher0
+  minimum_rancher_version: 1.1.4
+  questions:
+  - variable: QUOBYTE_NETWORK
+    label: Quobyte Network
+    description: How network traffic is routed between containers
+    required: true
+    type: enum
+    default: rancher-sdn
+    options:
+    - host
+    - rancher-sdn
+  - variable: REGISTRY_SCALE
+    label: Registry Scale
+    description: Number of registry replicas to schedule. At least this many hosts are required
+    required: true
+    type: enum
+    default: 3
+    options:
+    - 1
+    - 3
+  - variable: VOLUME_TYPE
+    label: EBS Volume Type
+    description: The type of EBS volume to be created for all storage volumes
+    required: true
+    type: enum
+    default: gp2
+    options:
+    - standard
+    - gp2
+    - sc1
+    - st1
+  - variable: REGISTRY_SIZE_GB
+    label: Registry Volume Size (GB)
+    description: The size of the EBS volume to be created for registry storage on each host
+    required: true
+    type: int
+    default: 1
+    min: 1
+    max: 2147483647
+  - variable: DATA_SIZE_GB
+    label: Data Volume Size (GB)
+    description: The size of the EBS volume to be created for data storage on each host
+    required: true
+    type: int
+    default: 20
+    min: 1
+    max: 2147483647
+  - variable: METADATA_SIZE_GB
+    label: Metadata Volume Size (GB)
+    description: The size of the EBS volume to be created for metadata storage on each host
+    required: true
+    type: int
+    default: 2
+    min: 1
+    max: 2147483647
+registry:
+  scale: ${REGISTRY_SCALE}
+  health_check:
+    request_line: GET / HTTP/1.0
+    port: 7871
+    interval: 5000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
+api:
+  health_check:
+    port: 7860
+    interval: 5000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
+webconsole:
+  health_check:
+    request_line: GET / HTTP/1.0
+    port: 8080
+    interval: 5000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
+metadata:
+  health_check:
+    port: 7872
+    interval: 10000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2
+data:
+  health_check:
+    port: 7873
+    interval: 10000
+    response_timeout: 5000
+    healthy_threshold: 2
+    unhealthy_threshold: 2

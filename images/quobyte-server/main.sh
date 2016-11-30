@@ -88,6 +88,18 @@ ulimit -n $LIMIT_OPEN_FILES
 ulimit -v unlimited
 ulimit -u $LIMIT_MAX_PROCESSES
 
+case $QUOBYTE_SERVER in
+  registry)
+    echo TODO: automate $QUOBYTE_SERVER
+    ;;
+  metadata)
+    echo TODO: automate $QUOBYTE_SERVER
+    ;;
+  data)
+    echo TODO: automate $QUOBYTE_SERVER
+    ;;
+esac
+
 echo "Running Quobyte service $QUOBYTE_SERVICE $SERVICE_UUID in container"
 echo "Service configuration:"
 cat /etc/quobyte/$QUOBYTE_SERVICE.cfg

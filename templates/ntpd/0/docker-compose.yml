@@ -8,7 +8,7 @@ services:
     - SYS_TIME
     - SYS_NICE
     privileged: true
-    mem_limit: 64000000
+    mem_limit: 32000000
     tmpfs:
     - /var/run:rw,noexec,nosuid,size=1m
     - /var/db:rw,noexec,nosuid,size=8m

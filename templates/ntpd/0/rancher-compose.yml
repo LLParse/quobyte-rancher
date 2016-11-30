@@ -3,10 +3,7 @@
   questions:
   - variable: TIME_ZONE
     label: Time Zone
-    description: Host system time zone
+    description: System time zone (default is UTC)
     required: true
-    type: enum
+    type: string
     default: UTC
-    options:
-    - UTC
-    - MST
