@@ -116,19 +116,35 @@ services:
         max-size: 25m
         max-file: '2'
 
+#volumes:
+#  registry:
+#    driver: rancher-ebs
+#    driver_opts:
+#      size: ${REGISTRY_SIZE_GB}
+#      volumeType: ${VOLUME_TYPE}
+#  metadata:
+#    driver: rancher-ebs
+#    driver_opts:
+#      size: ${METADATA_SIZE_GB}
+#      volumeType: ${VOLUME_TYPE}
+#  data:
+#    driver: rancher-ebs
+#    driver_opts:
+#      size: ${DATA_SIZE_GB}
+#      volumeType: ${VOLUME_TYPE}
 volumes:
   registry:
     driver: rancher-ebs
     driver_opts:
-      size: ${REGISTRY_SIZE_GB}
-      volumeType: ${VOLUME_TYPE}
+      size: 1
+      volumeType: gp2
   metadata:
     driver: rancher-ebs
     driver_opts:
-      size: ${METADATA_SIZE_GB}
-      volumeType: ${VOLUME_TYPE}
+      size: 2
+      volumeType: gp2
   data:
     driver: rancher-ebs
     driver_opts:
-      size: ${DATA_SIZE_GB}
-      volumeType: ${VOLUME_TYPE}
+      size: 10
+      volumeType: gp2
