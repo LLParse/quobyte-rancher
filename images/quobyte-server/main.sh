@@ -42,6 +42,7 @@ uname -a
 if [ "$QUOBYTE_NETWORK" == "host" ]; then export HOST_IP=$(rancher_agent_ip); fi
 
 echo registry=$QUOBYTE_REGISTRY > /etc/quobyte/host.cfg
+if [ -n "$QUOBYTE_LOG_LEVEL" ]; then echo debug.level=$(get_debug_level $QUOBYTE_LOG_LEVEL) >> /etc/quobyte/host.cfg; fi
 
 if [ -n "$QUOBYTE_RPC_PORT" ]; then echo rpc.port=$QUOBYTE_RPC_PORT > /etc/quobyte/$QUOBYTE_SERVICE.cfg; fi
 if [ -n "$QUOBYTE_HTTP_PORT" ]; then echo http.port=$QUOBYTE_HTTP_PORT >> /etc/quobyte/$QUOBYTE_SERVICE.cfg; fi
@@ -54,7 +55,6 @@ if [ -n "$QUOBYTE_EXTRA_SERVICE_CONFIG" ]; then echo $QUOBYTE_EXTRA_SERVICE_CONF
 if [ -n "$QUOBYTE_DEBUG_PORT" ]; then echo REMOTE_DEBUGGING_PORT=$QUOBYTE_DEBUG_PORT >> /etc/default/quobyte; fi
 if [ -n "$QUOBYTE_ENABLE_ASSERTIONS" ]; then echo ENABLE_ASSERTIONS=$QUOBYTE_ENABLE_ASSERTIONS >> /etc/default/quobyte; fi
 if [ -n "$HOST_IP" ]; then echo public_ip=$HOST_IP >> /etc/quobyte/$QUOBYTE_SERVICE.cfg; fi
-if [ -n "$QUOBYTE_LOG_LEVEL" ]; then echo debug.level=$(get_debug_level $QUOBYTE_LOG_LEVEL) >> /etc/quobyte/$QUOBYTE_SERVICE.cfg; fi
 
 if [ -n "$QUOBYTE_MAX_MEM_REGISTRY" ]; then replaceOrAddParam "/etc/default/quobyte" "MAX_MEM_REGISTRY" "$QUOBYTE_MAX_MEM_REGISTRY"; fi
 if [ -n "$QUOBYTE_MAX_MEM_METADATA" ]; then replaceOrAddParam "/etc/default/quobyte" "MAX_MEM_METADATA" "$QUOBYTE_MAX_MEM_METADATA"; fi

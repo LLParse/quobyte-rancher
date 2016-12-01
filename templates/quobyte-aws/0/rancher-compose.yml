@@ -4,13 +4,28 @@
   questions:
   - variable: QUOBYTE_NETWORK
     label: Quobyte Network
-    description: How network traffic is routed between containers
+    description: How network traffic is routed between node
     required: true
     type: enum
     default: rancher-sdn
     options:
     - host
     - rancher-sdn
+  - variable: QUOBYTE_LOG_LEVEL
+    label: Quobyte Log Level
+    description: Quobyte logging level
+    required: true
+    type: enum
+    default: INFO
+    options:
+    - EMERG
+    - ALERT
+    - CRIT
+    - ERR
+    - WARNING
+    - NOTICE
+    - INFO
+    - DEBUG
   - variable: REGISTRY_SCALE
     label: Registry Scale
     description: Number of registry replicas to schedule. At least this many hosts are required
