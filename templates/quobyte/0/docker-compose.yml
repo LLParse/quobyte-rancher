@@ -39,6 +39,8 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.scheduler.affinity:host_label_soft: quobyte=api
+    links:
+    - registry
     ports:
     - 7860:7860/tcp
     - 7865:7865/tcp
@@ -64,6 +66,8 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.scheduler.affinity:host_label_soft: quobyte=webconsole
+    links:
+    - registry
     ports:
     - 8080:8080/tcp
     - 7866:7866/tcp
@@ -87,6 +91,8 @@ services:
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
+    links:
+    - registry
     ports:
     - 7862:7862/tcp
     - 7862:7862/udp
@@ -111,6 +117,8 @@ services:
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
+    links:
+    - registry
     ports:
     - 7863:7863/tcp
     - 7863:7863/udp
@@ -132,6 +140,8 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.container.hostname_override: container_name
       io.rancher.scheduler.global: 'true'
+    links:
+    - registry
     privileged: true
     volumes:
     - ${QUOBYTE_DEVICE_PATH}/quobyte:/quobyte

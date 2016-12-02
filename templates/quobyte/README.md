@@ -1,15 +1,15 @@
-quobyte
+Quobyte
 =======
 
 Turn your ephemeral toys into durable, stateful applications.
 
-* Fake Device Deployment
+# Test Deployment
 
 For testing purposes, the root filesystem may be used for the registry, metadata, and data devices. This is for testing purposes only, as performance will be poor.
 
 To make use of this deployment model, simply create your Rancher hosts with appropriately-sized root devices. A minimum size of `50GB` is recommended. The template will take care of creating fake devices.
 
-* Dedicated Device Deployment
+# Production Deployment
 
 In a real production deployment, you will want to make use of dedicated devices. It is your responsibility to create the filesystem (`ext4` is recommended) and mount the devices (`/etc/fstab` entries are recommended to allow server reboots).
 
@@ -21,6 +21,6 @@ Assuming you are using the default device path `/mnt`, you want to mount your de
 
 It would be viable to mount multiple devices to a single host, which may make sense if building on bare metal. Mount the devices within their respective folders, such as `/mnt/metadata/1`, `/mnt/metadata/2`, etc. Only one registry device per host will be used, others will be only be used in the event of a hardware failure.
 
-* Using a Deployment with Multiple Environments
+# Multi-Environment Volume Consumption
 
 A client is necessary to make use of Quobyte volumes. By default, we schedule client nodes globally with the Quobyte deployment. If you want to make use of a deployment in other environments, launch the `Quobyte Client` template into each desired environment.

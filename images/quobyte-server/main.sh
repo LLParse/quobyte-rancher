@@ -51,11 +51,14 @@ function prepare_device () {
 
     # only initialize if not already initialized
     if [ ! -f "${device_path}/QUOBYTE_DEV_SETUP" ]; then
-        local qcmd=qmkdev
-        if [ "$QUOBYTE_SERVICE" == "registry" ] && [ "$(giddyup leader check)" ]; then
-            qcmd=qbootstrap
+        if [ "$QUOBYTE_SERVICE" == "registry" ]; then
+            giddyup leader check
+            if [ $? -eq 0 ]; then
+                qbootstrap -y $device_path
+                return
+            fi
         fi
-        $qcmd -t $QUOBYTE_SERVICE -y $device_path
+        qmkdev -t $QUOBYTE_SERVICE -y $device_path
     fi
 }
 
