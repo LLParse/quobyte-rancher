@@ -4,6 +4,7 @@ services:
     image: llparse/docker-quobyte-plugin:v1.0-beta-2
     command: "-api http://api.quobyte.rancher.internal:7860 -path /quobyte -registry quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861"
     labels:
+      io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
     volumes:
     - /mnt/quobyte:/quobyte:shared

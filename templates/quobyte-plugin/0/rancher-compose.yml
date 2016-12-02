@@ -1,3 +1,8 @@
 .catalog:
   version: v1.0-beta-2
   minimum_rancher_version: 1.1.4
+plugin:
+  storage_driver:
+    name: quobyte
+    scope: environment
+    volume_access_mode: multiHostRW
