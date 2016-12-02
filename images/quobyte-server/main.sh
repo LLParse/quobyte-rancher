@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 function replaceOrAddParam () {
     local config_file=$1
@@ -37,9 +37,34 @@ function get_debug_level () {
     echo $debug_level
 }
 
+function prepare_device () {
+    local device_path=/devices/$QUOBYTE_SERVICE
+
+    if [ ! "$(grep -q $device_path /proc/mounts)" ]; then
+        echo "WARNING: no device mount detected at '$device_path'. Creating a fake one"
+        device_path=/devices/fakemnt/$QUOBYTE_SERVICE
+        mkdir -p /devices/fakedev/$QUOBYTE_SERVICE $device_path
+        mount --bind /devices/fakedev/$QUOBYTE_SERVICE $device_path
+
+        echo test.device_dir=/devices/fakemnt >> /etc/quobyte/$QUOBYTE_SERVICE.cfg
+    fi
+
+    # only initialize if not already initialized
+    if [ ! -f "${device_path}/QUOBYTE_DEV_SETUP" ]; then
+        local qcmd=qmkdev
+        if [ "$QUOBYTE_SERVICE" == "registry" ] && [ "$(giddyup leader check)" ]; then
+            qcmd=qbootstrap
+        fi
+        $qcmd -t $QUOBYTE_SERVICE -y $device_path
+    fi
+}
+
 uname -a
 
 if [ "$QUOBYTE_NETWORK" == "host" ]; then export HOST_IP=$(rancher_agent_ip); fi
+
+# lowercase
+QUOBYTE_SERVICE=${QUOBYTE_SERVICE,,}
 
 echo registry=$QUOBYTE_REGISTRY > /etc/quobyte/host.cfg
 if [ -n "$QUOBYTE_LOG_LEVEL" ]; then echo debug.level=$(get_debug_level $QUOBYTE_LOG_LEVEL) >> /etc/quobyte/host.cfg; fi
@@ -69,13 +94,21 @@ if [ -n "$QUOBYTE_MIN_MEM_API" ]; then replaceOrAddParam "/etc/default/quobyte" 
 if [ -n "$QUOBYTE_MIN_MEM_WEBCONSOLE" ]; then replaceOrAddParam "/etc/default/quobyte" "MIN_MEM_WEBCONSOLE" "$QUOBYTE_MIN_MEM_WEBCONSOLE"; fi
 if [ -n "$QUOBYTE_MIN_MEM_S3" ]; then replaceOrAddParam "/etc/default/quobyte" "MIN_MEM_S3" "$QUOBYTE_MIN_MEM_S3"; fi
 
-grep -q "/devices" /proc/mounts
-if [ $? -ne 0 ]; then
-  echo test.device_dir=/devices >> /etc/quobyte/$QUOBYTE_SERVICE.cfg
-fi
-
 echo logging.file_name= >> /etc/quobyte/$QUOBYTE_SERVICE.cfg
 echo logging.stdout=true >> /etc/quobyte/$QUOBYTE_SERVICE.cfg
+
+case $QUOBYTE_SERVICE in
+  registry)
+    prepare_device
+    ;;
+  metadata)
+    prepare_device
+    ;;
+  data)
+    prepare_device
+    ;;
+esac
+
 
 SERVICE_UUID=$(uuidgen)
 echo uuid=$SERVICE_UUID >> /etc/quobyte/$QUOBYTE_SERVICE.cfg
@@ -87,18 +120,6 @@ ulimit -n $LIMIT_OPEN_FILES
 # Maximize the virtual memory limit to make sure that Java can set the MaxHeapSize (-Xmx) correctly.
 ulimit -v unlimited
 ulimit -u $LIMIT_MAX_PROCESSES
-
-case $QUOBYTE_SERVER in
-  registry)
-    echo TODO: automate $QUOBYTE_SERVER
-    ;;
-  metadata)
-    echo TODO: automate $QUOBYTE_SERVER
-    ;;
-  data)
-    echo TODO: automate $QUOBYTE_SERVER
-    ;;
-esac
 
 echo "Running Quobyte service $QUOBYTE_SERVICE $SERVICE_UUID in container"
 echo "Service configuration:"
