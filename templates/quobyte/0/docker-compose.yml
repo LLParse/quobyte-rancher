@@ -145,6 +145,10 @@ services:
       io.rancher.scheduler.global: 'true'
     links:
     - registry
+    - api
+    - webconsole
+    - metadata
+    - data
     ports:
     - 55000:55000
     privileged: true
@@ -161,6 +165,8 @@ services:
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
+    links:
+    - client
     volumes:
     - /var/lib/rancher/volumes/quobyte:/quobyte:shared
     - /run/docker/plugins:/run/docker/plugins
