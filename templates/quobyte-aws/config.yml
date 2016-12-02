@@ -1,8 +1,0 @@
-name: Quobyte AWS
-description: >
-  Turn commodity servers into a data center file system (AWS automation)
-version: v1.3.11-rancher0
-category: Storage
-minimum_rancher_version: 1.1.4
-labels:
-  io.rancher.certified: rancher

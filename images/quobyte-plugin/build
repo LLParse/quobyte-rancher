@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+HOST=${HOST:-docker.io}
+ACCOUNT=${ACCOUNT:-llparse}
+VERSION=${VERSION:-v1.0-beta-2}
+
+docker build -t ${ACCOUNT}/docker-quobyte-plugin:${VERSION} .
+docker push ${ACCOUNT}/docker-quobyte-plugin:${VERSION}

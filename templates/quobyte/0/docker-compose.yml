@@ -149,7 +149,22 @@ services:
     - 55000:55000
     privileged: true
     volumes:
-    - ${HOST_DEVICE_PATH}/quobyte:/quobyte:shared
+    - /var/lib/rancher/volumes/quobyte:/quobyte:shared
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
+        max-file: '2'
+  plugin:
+    image: llparse/docker-quobyte-plugin:v1.0-beta-2
+    command: "-api http://api.quobyte.rancher.internal:7860 -path /quobyte -registry quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861"
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+    volumes:
+    - /var/lib/rancher/volumes/quobyte:/quobyte:shared
+    - /run/docker/plugins:/run/docker/plugins
+    - /var/run/docker.sock:/var/run/docker.sock
     logging:
       driver: json-file
       options:
