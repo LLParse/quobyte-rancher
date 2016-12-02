@@ -2,13 +2,16 @@ version: '2'
 services:
   client:
     image: llparse/quobyte-client:1.3.11
-    command: >
-      mount.quobyte quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861/${VOLUME_NAME} /mnt/${VOLUME_NAME}
+    environment:
+      QUOBYTE_LOG_LEVEL: DEBUG
+      QUOBYTE_REGISTRY: quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.global: 'true'
     privileged: true
     volumes:
-    - /mnt:/mnt
+    - /mnt/quobyte:/quobyte
     logging:
       driver: json-file
       options:
