@@ -37,7 +37,7 @@
     description: Number of registry replicas to schedule. At least this many hosts are required
     required: true
     type: enum
-    default: 1
+    default: 3
     options:
     - 1
     - 3

@@ -123,3 +123,20 @@ services:
       options:
         max-size: 25m
         max-file: '2'
+  client:
+    image: llparse/quobyte-client:1.3.11
+    environment:
+      QUOBYTE_REGISTRY: quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861
+      QUOBYTE_LOG_LEVEL: ${QUOBYTE_LOG_LEVEL}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.global: 'true'
+    privileged: true
+    volumes:
+    - ${QUOBYTE_DEVICE_PATH}/quobyte:/quobyte
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
+        max-file: '2'
