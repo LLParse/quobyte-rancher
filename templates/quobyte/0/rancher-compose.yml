@@ -26,8 +26,8 @@
     - NOTICE
     - INFO
     - DEBUG
-  - variable: QUOBYTE_DEVICE_PATH
-    label: Device Path
+  - variable: HOST_DEVICE_PATH
+    label: Host Device Path
     description: Host filesystem directory containing mounted devices prepared for Quobyte
     required: true
     default: /mnt

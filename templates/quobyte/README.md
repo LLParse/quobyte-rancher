@@ -11,7 +11,7 @@ To make use of this deployment model, simply create your Rancher hosts with appr
 
 # Production Deployment
 
-In a real production deployment, you will want to make use of dedicated devices. It is your responsibility to create the filesystem (`ext4` is recommended) and mount the devices (`/etc/fstab` entries are recommended to allow server reboots).
+In a real production deployment, you will want to make use of dedicated devices. It is your responsibility to create the filesystem (`ext4` is recommended) and mount the devices (`/etc/fstab` entries are recommended to ensure mountpoints persist across reboots).
 
 Assuming you are using the default device path `/mnt`, you want to mount your devices at the following locations:
 

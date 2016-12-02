@@ -3,7 +3,7 @@ quobyte-aws
 
 **NOT READY FOR USE** For a production-grade Quobyte installation with fault tolerance, use the `Quobyte` catalog entry.
 
-Automated setup of a fault-tolerant Quobyte server installation in AWS using EBS block devices.
+Automated setup of a Quobyte server installation in AWS using EBS block devices.
 
 # Prerequisites
 

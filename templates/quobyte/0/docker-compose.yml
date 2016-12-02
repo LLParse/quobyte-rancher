@@ -19,7 +19,8 @@ services:
     - 7871:7871/tcp
     privileged: true
     volumes:
-    - ${QUOBYTE_DEVICE_PATH}/:/devices
+    - ${HOST_DEVICE_PATH}/:/devices
+    - /proc:/host/proc
     logging:
       driver: json-file
       options:
@@ -99,7 +100,8 @@ services:
     - 7872:7872/tcp
     privileged: true
     volumes:
-    - ${QUOBYTE_DEVICE_PATH}/:/devices
+    - ${HOST_DEVICE_PATH}/:/devices
+    - /proc:/host/proc
     logging:
       driver: json-file
       options:
@@ -125,7 +127,8 @@ services:
     - 7873:7873/tcp
     privileged: true
     volumes:
-    - ${QUOBYTE_DEVICE_PATH}/:/devices
+    - ${HOST_DEVICE_PATH}/:/devices
+    - /proc:/host/proc
     logging:
       driver: json-file
       options:
@@ -144,7 +147,7 @@ services:
     - registry
     privileged: true
     volumes:
-    - ${QUOBYTE_DEVICE_PATH}/quobyte:/quobyte
+    - ${HOST_DEVICE_PATH}/quobyte:/quobyte
     logging:
       driver: json-file
       options:

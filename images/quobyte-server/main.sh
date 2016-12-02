@@ -40,8 +40,9 @@ function get_debug_level () {
 function prepare_device () {
     local device_path=/devices/$QUOBYTE_SERVICE
 
-    if [ ! "$(grep -q $device_path /proc/mounts)" ]; then
-        echo "WARNING: no device mount detected at '$device_path'. Creating a fake one"
+    # look at host mount namespace for devices first..
+    if [ ! "$(grep $device_path /host/proc/mounts)" ]; then
+        echo "WARNING: no host device mount detected at '$device_path'. Creating a fake one"
         device_path=/devices/fakemnt/$QUOBYTE_SERVICE
         mkdir -p /devices/fakedev/$QUOBYTE_SERVICE $device_path
         mount --bind /devices/fakedev/$QUOBYTE_SERVICE $device_path
