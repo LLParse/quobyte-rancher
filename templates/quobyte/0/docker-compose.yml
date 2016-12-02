@@ -145,9 +145,11 @@ services:
       io.rancher.scheduler.global: 'true'
     links:
     - registry
+    ports:
+    - 55000:55000
     privileged: true
     volumes:
-    - ${HOST_DEVICE_PATH}/quobyte:/quobyte
+    - ${HOST_DEVICE_PATH}/quobyte:/quobyte:shared
     logging:
       driver: json-file
       options:

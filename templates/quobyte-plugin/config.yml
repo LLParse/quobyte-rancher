@@ -1,0 +1,8 @@
+name: Quobyte Plugin
+description: >
+  Docker plugin for Quobyte volumes
+version: v1.0-beta-2
+category: Storage
+minimum_rancher_version: 1.1.4
+labels:
+  io.rancher.certified: rancher
