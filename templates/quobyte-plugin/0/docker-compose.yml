@@ -21,12 +21,12 @@ services:
         max-file: '2'
   plugin:
     image: llparse/docker-quobyte-plugin:v1.0-beta-2
-    command: "-api ${QUOBYTE_API} -path /quobyte -registry ${QUOBYTE_REGISTRY} -user ${QUOBYTE_USER} -password ${QUOBYTE_PASSWORD}"
+    command: "-api ${QUOBYTE_API} -path /var/lib/rancher/volumes/quobyte -registry ${QUOBYTE_REGISTRY} -user ${QUOBYTE_USER} -password ${QUOBYTE_PASSWORD}"
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
     volumes:
-    - /var/lib/rancher/volumes/quobyte:/quobyte:shared
+    - /var/lib/rancher/volumes/quobyte:/var/lib/rancher/volumes/quobyte:shared
     - /run/docker/plugins:/run/docker/plugins
     - /var/run/docker.sock:/var/run/docker.sock
     logging:

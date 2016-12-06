@@ -161,14 +161,15 @@ services:
         max-file: '2'
   plugin:
     image: llparse/docker-quobyte-plugin:v1.0-beta-2
-    command: "-api http://api.quobyte.rancher.internal:7860 -path /quobyte -registry quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861"
+    command: "-api http://api.quobyte.rancher.internal:7860 -path /var/lib/rancher/volumes/quobyte -registry quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861"
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
     links:
     - client
     volumes:
-    - /var/lib/rancher/volumes/quobyte:/quobyte:shared
+    # this path must line up with the host, because Docker daemon will look for the mount
+    - /var/lib/rancher/volumes/quobyte:/var/lib/rancher/volumes/quobyte:shared
     - /run/docker/plugins:/run/docker/plugins
     - /var/run/docker.sock:/var/run/docker.sock
     logging:
