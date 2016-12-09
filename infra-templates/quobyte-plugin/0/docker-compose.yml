@@ -2,18 +2,22 @@ version: '2'
 services:
   client:
     image: llparse/quobyte-client:1.3.11
-    environment:
-      QUOBYTE_REGISTRY: ${QUOBYTE_REGISTRY}
-      QUOBYTE_LOG_LEVEL: ${QUOBYTE_LOG_LEVEL}
+    command: "/bin/mount.quobyte -f -d ${QUOBYTE_LOG_LEVEL} quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861/ /var/lib/rancher/volumes/quobyte"
     labels:
       io.rancher.container.pull_image: always
       io.rancher.container.hostname_override: container_name
       io.rancher.scheduler.global: 'true'
+    links:
+    - registry
+    - api
+    - webconsole
+    - metadata
+    - data
     ports:
     - 55000:55000
     privileged: true
     volumes:
-    - /var/lib/rancher/volumes/quobyte:/quobyte:shared
+    - /var/lib/rancher/volumes/quobyte:/var/lib/rancher/volumes/quobyte:shared
     logging:
       driver: json-file
       options:
@@ -21,12 +25,15 @@ services:
         max-file: '2'
   plugin:
     image: llparse/docker-quobyte-plugin:v1.0-beta-2
-    command: "-api ${QUOBYTE_API} -path /var/lib/rancher/volumes/quobyte -registry ${QUOBYTE_REGISTRY} -user ${QUOBYTE_USER} -password ${QUOBYTE_PASSWORD}"
+    command: "-api http://api.quobyte.rancher.internal:7860 -path /var/lib/rancher/volumes/quobyte -user ${QUOBYTE_USERNAME} -password ${QUOBYTE_PASSWORD} -registry quobyte-registry-1.rancher.internal:7861,quobyte-registry-2.rancher.internal:7861,quobyte-registry-3.rancher.internal:7861"
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
+    links:
+    - client
     volumes:
-    - /var/lib/rancher/volumes/quobyte:/var/lib/rancher/volumes/quobyte:shared
+    # this path must line up with the host, because Docker daemon will look for the mount
+    - /var/lib/rancher/volumes/quobyte:/var/lib/rancher/volumes/quobyte
     - /run/docker/plugins:/run/docker/plugins
     - /var/run/docker.sock:/var/run/docker.sock
     logging:

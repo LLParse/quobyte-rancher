@@ -14,18 +14,18 @@
     required: true
     default: http://api.quobyte.rancher.internal:7860
     type: string
-  - variable: QUOBYTE_USER
-    label: Quobyte API User
-    description: "the API server(s) in the form http://host[:port][,host:port] or SRV record name"
+  - variable: QUOBYTE_USERNAME
+    label: Plugin Username
+    description: Username used by the Docker volume plugin to communicate with the API server
     required: true
-    default: http://api.quobyte.rancher.internal:7860
+    default: admin
     type: string
-  - variable: QUOBYTE_PASSOWRD
-    label: Quobyte API
-    description: "the API server(s) in the form http://host[:port][,host:port] or SRV record name"
+  - variable: QUOBYTE_PASSWORD
+    label: Plugin Password
+    description: Password used by the Docker volume plugin to communicate with the API server
     required: true
-    default: http://api.quobyte.rancher.internal:7860
-    type: string    
+    default: quobyte
+    type: string
 client:
   health_check:
     port: 55000
