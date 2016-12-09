@@ -7,7 +7,7 @@
     description: How network traffic is routed between node
     required: true
     type: enum
-    default: rancher-sdn
+    default: host
     options:
     - host
     - rancher-sdn
