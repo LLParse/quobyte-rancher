@@ -102,6 +102,6 @@ client:
     unhealthy_threshold: 2
 plugin:
   storage_driver:
-    name: rancher-quobyte
+    name: quobyte
     scope: environment
     volume_access_mode: multiHostRW

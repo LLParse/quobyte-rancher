@@ -10,13 +10,10 @@ services:
             RANCHER_DEBUG: 'true'
             EMBEDDED_BACKUPS: 'true'
             BACKUP_PERIOD: 1s
-            BACKUP_RETENTION: 10s
+            BACKUP_RETENTION: 5m
         volumes:
-        - etcd:/pdata
         - etcd_backup:/data-backup
 
 volumes:
-    etcd:
-        driver: quobyte
     etcd_backup:
         driver: quobyte

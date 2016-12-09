@@ -166,7 +166,7 @@ services:
     links:
     - client
     volumes:
-    # this path must line up with the host, because Docker daemon will look for the mount
+    # this path must line up with the host, because Docker daemon will look for the mount advertised by the container
     - /var/lib/rancher/volumes/quobyte:/var/lib/rancher/volumes/quobyte
     - /run/docker/plugins:/run/docker/plugins
     - /var/run/docker.sock:/var/run/docker.sock
