@@ -1,0 +1,30 @@
+.catalog:
+  version: 1.0
+  minimum_rancher_version: v1.2.0
+  questions:
+  - variable: NUM_NODES
+    description: Initial number of Cassandra nodes to launch.
+    label: Number of Nodes
+    required: true
+    default: 1
+    type: int
+  - variable: MAX_HEAP_SIZE
+    description: The maximum heap size of the Cassandra JVM
+    label: Cassandra Heap Size
+    required: true
+    default: 512M
+    type: string
+  - variable: CLUSTER_NAME
+    description: Name for the Cassandra cluster. This must match an old deployment name
+    label: Cassandra Cluster Name
+    required: true
+    default: quobyte-cassandra
+    type: string
+cassandra:
+  scale: ${NUM_NODES}
+  health_check:
+    port: 9042
+    interval: 5000
+    response_timeout: 3000
+    healthy_threshold: 2
+    unhealthy_threshold: 2

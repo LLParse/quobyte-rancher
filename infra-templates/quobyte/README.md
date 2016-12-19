@@ -23,4 +23,4 @@ It would be viable to mount multiple devices to a single host, which may make se
 
 # Multi-Environment Volume Consumption
 
-A client is necessary to make use of Quobyte volumes. By default, we schedule client nodes globally with the Quobyte deployment. If you want to make use of a deployment in other environments, launch the `Quobyte Client` template into each desired environment.
+A client is necessary to make use of Quobyte volumes. By default, we schedule client nodes globally with the Quobyte deployment. If you want to make use of a deployment in other environments, launch the `Quobyte Plugin` template into each desired environment.

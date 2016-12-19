@@ -1,0 +1,5 @@
+name: "Cassandra [Quobyte]"
+description: >
+  Cassandra backed by Quobyte volumes
+version: 1.0
+category: Example
